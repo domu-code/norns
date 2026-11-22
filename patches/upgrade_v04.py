@@ -28,6 +28,16 @@ change(runtime,
     '            File file=new File(currentScript.getParentFile(),path).getCanonicalFile();',
     '            String localName=path.replace(\'\\\\\',\'/\');\n            String folderName=currentScript.getParentFile().getName()+"/";\n            if(localName.startsWith(folderName))localName=localName.substring(folderName.length());\n            File file=new File(currentScript.getParentFile(),localName).getCanonicalFile();')
 
+
+change(runtime,
+    '            File file=new File(currentScript.getParentFile(),localName).getCanonicalFile();',
+    '''            File file=new File(currentScript.getParentFile(),localName).getCanonicalFile();
+            if(!file.isFile() && localName.contains("/")){
+                String childPath=localName.substring(localName.indexOf('/')+1);
+                File alt=new File(currentScript.getParentFile(),childPath).getCanonicalFile();
+                if(alt.isFile())file=alt;
+            }''')
+
 main = java / "MainActivity.java"
 change(main,
     'private static final int IMPORT_LUA=101,IMPORT_WAV=102,MIC_PERMISSION=103;',
