@@ -26,6 +26,13 @@ jobs:
       - name: Apply Java source compatibility fix
         run: patch -d NornsPocket_Android -p1 < patches/0001-fix-osc-lambda-variable.patch
 
+      - name: Upgrade archived project to Norns Pocket 0.4
+        run: |
+          python3 patches/upgrade_v04.py NornsPocket_Android
+          cp -R overrides/app/. NornsPocket_Android/app/
+          test -f NornsPocket_Android/app/src/main/assets/scripts/09_MLR_Pocket.lua
+          test -f NornsPocket_Android/app/src/main/java/io/oll/nornspocket/ScriptZipInstaller.java
+
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
