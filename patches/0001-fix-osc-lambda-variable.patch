@@ -1,0 +1,14 @@
+--- a/app/src/main/java/io/oll/nornspocket/LuaRuntime.java
++++ b/app/src/main/java/io/oll/nornspocket/LuaRuntime.java
+@@ -196,9 +196,9 @@
+         globals.set("audio",audioModule);
+ 
+         LuaTable oscTable=table();
+-        fn(oscTable,"send",a->{LuaValue address=a.arg(1);String host=address.get(1).tojstring();int port=address.get(2).toint();String path=a.arg(2).tojstring();LuaValue values=a.arg(3);List<Object> args=new ArrayList<>();
++        fn(oscTable,"send",a->{LuaValue address=a.arg(1);String host=address.get(1).tojstring();int port=address.get(2).toint();String oscPath=a.arg(2).tojstring();LuaValue values=a.arg(3);List<Object> args=new ArrayList<>();
+             for(int i=1;i<=values.length();i++){LuaValue v=values.get(i);if(v.isstring() && !v.isnumber())args.add(v.tojstring());else if(v.isint())args.add(v.toint());else if(v.isnumber())args.add(v.tofloat());else if(v.isboolean())args.add(v.toboolean());}
+-            osc.send(host,port,path,args.toArray());return nil();});
++            osc.send(host,port,oscPath,args.toArray());return nil();});
+         globals.set("osc",oscTable);
+     }
+     private void schedulePhasePoll(int epoch){
