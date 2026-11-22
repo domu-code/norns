@@ -39,7 +39,7 @@ public class BundledScriptSmokeTest {
         return table;
     }
     private static String text(File file) throws Exception {
-        return Files.readString(file.toPath());
+        return new String(Files.readAllBytes(file.toPath()),java.nio.charset.StandardCharsets.UTF_8);
     }
     @Test public void bundledScriptsLoadAndInitializeUnderActualLuaJ() throws Exception {
         File assets=new File("src/main/assets");
