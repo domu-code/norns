@@ -71,7 +71,7 @@ public final class ScriptZipInstaller {
                         file.write(block,0,size);
                     }
                 }
-                if(lower.endsWith(".lua")&&!lower.contains("/lib/"))scriptCount++;
+                if(lower.endsWith(".lua")&&!lower.startsWith("lib/")&&!lower.contains("/lib/"))scriptCount++;
                 zin.closeEntry();
             }
             zin.close();
