@@ -67,8 +67,8 @@ change(main,
                         if(col>=0&&c.getString(col)!=null)name=c.getString(col);
                     }
                 }
-                ScriptZipInstaller.Installed result=ScriptZipInstaller.install(in,scripts,name);
-                showStatus("Imported "+result.scripts+" scripts: "+result.folder.getName());
+                ScriptZipInstaller.Installed installed=ScriptZipInstaller.install(in,scripts,name);
+                showStatus("Imported "+installed.scripts+" scripts: "+installed.folder.getName());
                 refreshScripts();
             }catch(Exception e){showStatus("ZIP import failed: "+e.getMessage());}
             return;
